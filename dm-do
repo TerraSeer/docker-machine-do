@@ -1,3 +1,5 @@
+#!/usr/bin/sh
+
 green=$(tput setaf 2)
 blue=$(tput setaf 4)
 reset=$(tput sgr0)
@@ -13,8 +15,8 @@ name () {
 dm-do () {
 export DEBIAN_FRONTEND=noninteractive
 for machine in $(docker-machine ls -q); do
-  printf "$green$@$reset\n" | name $machine
-  docker-machine ssh $machine $@ | name $machine
+  printf "%s%s%s\n" "$green" "$*" "$reset" | name $machine
+  docker-machine ssh $machine $* | name $machine
   printf '\n'
 done
 }
