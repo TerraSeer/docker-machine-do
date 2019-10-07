@@ -11,6 +11,7 @@ name () {
 }
 
 dm-do () {
+export DEBIAN_FRONTEND=noninteractive
 for machine in $(docker-machine ls -q); do
   printf "$green$@$reset\n" | name $machine
   docker-machine ssh $machine $@ | name $machine
