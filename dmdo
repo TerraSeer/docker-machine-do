@@ -5,18 +5,18 @@ blue=$(tput setaf 4)
 reset=$(tput sgr0)
 
 name () {
-  while read r
+  while read -r r
   do
-    printf "$blue$1: $reset$r\n"
+    printf "%s%s: %s%s\n" "$blue" "$1" "$reset" "$r"
   done
   exit $?
 }
 
-dm-do () {
+dmdo () {
 export DEBIAN_FRONTEND=noninteractive
 for machine in $(docker-machine ls -q); do
-  printf "%s%s%s\n" "$green" "$*" "$reset" | name $machine
-  docker-machine ssh $machine $* | name $machine
+  printf "%s%s%s\n" "$green" "$*" "$reset" | name "$machine"
+  docker-machine ssh "$machine" "$*" | name "$machine"
   printf '\n'
 done
 }
